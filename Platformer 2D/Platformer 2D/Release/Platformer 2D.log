@@ -1,0 +1,40 @@
+﻿  Enemy.cpp
+Enemy.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Enemy.cpp(62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Enemy.cpp(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Enemy.cpp(116): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Enemy.cpp(120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\Player.h(71): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Map.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\Player.h(71): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Menu.cpp
+Menu.cpp(59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Menu.cpp(71): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(78): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(82): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(89): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(93): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(99): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(103): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+Menu.cpp(109): warning C4996: 'sf::Text::setColor': was declared deprecated
+  D:\Projekty Visual Studio 2015\External Libraries\SFML\include\SFML/Graphics/Text.hpp(210): note: see declaration of 'sf::Text::setColor'
+  Player.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\Player.h(71): warning C4305: 'initializing': truncation from 'double' to 'float'
+Player.cpp(443): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Player.cpp(447): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Player.cpp(451): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Player.cpp(455): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Player.cpp(459): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  All 123 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Platformer 2D.vcxproj -> D:\Projekty Visual Studio 2015\Platformer 2D\Release\Platformer 2D.exe
+  Platformer 2D.vcxproj -> D:\Projekty Visual Studio 2015\Platformer 2D\Release\Platformer 2D.pdb (Full PDB)

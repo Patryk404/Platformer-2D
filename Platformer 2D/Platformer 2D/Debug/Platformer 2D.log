@@ -1,0 +1,28 @@
+﻿  Player.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\player.cpp(712): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\player.cpp(716): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\player.cpp(720): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\player.cpp(724): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\player.cpp(728): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Map.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(102): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(107): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(112): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(113): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(117): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\map.cpp(200): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Enemy.cpp
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\enemy.cpp(23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\enemy.cpp(63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\enemy.cpp(118): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\enemy.cpp(122): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\projekty visual studio 2015\platformer 2d\platformer 2d\enemy.cpp(126): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  main.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Menu.cpp
+  Platformer 2D.vcxproj -> D:\Projekty Visual Studio 2015\Platformer 2D\Debug\Platformer 2D.exe
+  Platformer 2D.vcxproj -> D:\Projekty Visual Studio 2015\Platformer 2D\Debug\Platformer 2D.pdb (Full PDB)
