@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
 #include "map.h"
+#include "DeathScreen.h"
 class Menu
 {
 public:
@@ -27,16 +28,16 @@ public:
 	Menu();
 	void draw_menu(sf::RenderWindow &window);
 	void update_position(sf::RenderWindow &window);
-	void menu_system(sf::RenderWindow &window);
-	void choose_lvl_colission(sf::RenderWindow &window);
-	int beka;
+	void menu_system(sf::RenderWindow &window,Map &map);
+	void choose_lvl_colission(sf::RenderWindow &window, bool &new_game, int &count_death,Map &map);
+	Death_Screen dead_ss;
 private:
 	sf::Font font;
 	sf::CircleShape circle;
 	sf::Texture menu_background;
 	sf::SoundBuffer buffer_menu;
 	sf::SoundBuffer buffer_lvl1;
-	void menu_colission(sf::RenderWindow &window);
+	void menu_colission(sf::RenderWindow &window,Map &map);
 	void set_text(sf::Font &font, sf::Text &text, std::string string, float position_x, float position_y);
 };
 

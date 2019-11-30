@@ -20,11 +20,11 @@ Menu::Menu()
 	/************************************/
 	set_text(font, Exit_Button, "Back to menu", 150, 600);
 	/************************************/
-	set_text(font, Level1, "Level1", 240, 350);
+	set_text(font, Level1, "Level1", 240, 400);
 	/************************************/
-	set_text(font, Level2, "Level2", 600, 350);
+	set_text(font, Level2, "Level2", 600, 400);
 	/************************************/
-	set_text(font, Level3, "Level3", 1040, 350);
+	set_text(font, Level3, "Level3", 1040, 400);
 	/************************************/
 	background.setTexture(menu_background);
 	background.setScale(5, 5);
@@ -34,7 +34,7 @@ Menu::Menu()
 	Menu_music.setBuffer(buffer_menu);
 	Menu_music.setVolume(25);
 	Menu_music.setLoop(true);
-	Menu_music.play();
+	//Menu_music.play();
 	buffer_lvl1.loadFromFile("Music\\Level1.wav");
 	lvl1.setBuffer(buffer_lvl1);
 	lvl1.setVolume(25);
@@ -82,7 +82,7 @@ void Menu::update_position(sf::RenderWindow &window)
 {
 	circle.setPosition(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y);
 }
-void Menu::menu_colission(sf::RenderWindow &window)
+void Menu::menu_colission(sf::RenderWindow &window,Map &map)
 {
 	sf::FloatRect Start_box = Start.getGlobalBounds();
 	sf::FloatRect Credits_box = Credits.getGlobalBounds();
@@ -100,7 +100,10 @@ void Menu::menu_colission(sf::RenderWindow &window)
 				game = false;
 				credits = false;
 				choose_level = true;
-				lvl1.play();
+				map.lvl1 = false;
+				map.lvl2 = false;
+				map.lvl3 = false;
+				//lvl1.play();
 			}
 		}
 	}
@@ -141,12 +144,12 @@ void Menu::menu_colission(sf::RenderWindow &window)
 	else { Exit_Button.setColor(sf::Color::White); }
 	/************************************************/
 }
-void Menu::menu_system(sf::RenderWindow &window)
+void Menu::menu_system(sf::RenderWindow &window,Map &map)
 {
-	menu_colission(window);
+	menu_colission(window,map);
 	update_position(window);
 }
-void Menu::choose_lvl_colission(sf::RenderWindow &window)
+void Menu::choose_lvl_colission(sf::RenderWindow &window, bool &new_game, int &count_death,Map &map)
 {
 	sf::FloatRect Level1box = Level1.getGlobalBounds();
 	sf::FloatRect Level2box = Level2.getGlobalBounds();
@@ -159,9 +162,10 @@ void Menu::choose_lvl_colission(sf::RenderWindow &window)
 		Level1.setColor(sf::Color::Red);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			game = true;
+			new_game = true; 
+			game = false;
+			map.lvl1 = true;
 			choose_level = false;
-			Menu_music.stop();
 		}
 	}
 	else { Level1.setColor(sf::Color::White); }
@@ -169,12 +173,26 @@ void Menu::choose_lvl_colission(sf::RenderWindow &window)
     if (Circle_box.intersects(Level2box))
 	{
 		Level2.setColor(sf::Color::Red);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			new_game = true;
+			game = false;
+			map.lvl2 = true;
+			choose_level = false;
+		}
 	}
 	else { Level2.setColor(sf::Color::White); }
 	/******************************************/
 	if (Circle_box.intersects(Level3box))
 	{
 		Level3.setColor(sf::Color::Red);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			new_game = true;
+			game = false;
+			map.lvl3 = true;
+			choose_level = false;
+		}
 	}
 	else { Level3.setColor(sf::Color::White); }
 	/******************************************/

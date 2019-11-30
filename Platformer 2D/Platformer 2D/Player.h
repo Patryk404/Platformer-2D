@@ -13,9 +13,6 @@ public:
 	sf::RectangleShape sword;
 	sf::RectangleShape rectangle;
 	sf::RectangleShape health_bar;
-	sf::RectangleShape camera_right;
-	sf::RectangleShape camera_left; 
-	sf::RectangleShape camera_down;
 	/**************************************************/
 	sf::Sound Jump_s;
 	sf::Sound Hit_s;
@@ -23,14 +20,13 @@ public:
 	/**************************************************/
 	void gravitation();
 	void movement();
-	void colission(std::vector <sf::Sprite> &Platforms, int number_of_platforms,std::vector<sf::RectangleShape> &Walls,int number_of_invisible_walls,std::vector <sf::Sprite> &Spikes, int number_of_spikes, Enemy *eneme[],int number_of_enemies,sf::View &camera);
+	void colission(std::vector <sf::Sprite> &Platforms, int number_of_platforms,std::vector<sf::RectangleShape> &Walls,int number_of_invisible_walls,std::vector <sf::Sprite> &Spikes, int number_of_spikes,std::vector <sf::Sprite> &Portals,int number_of_portals, std::vector<Enemy> &Enemies,int number_of_enemies,bool&new_game,bool&game,bool&lvl1,bool&lvl2,bool&lvl3);
 	void Update_position_circle();
 	void jump();
 	void animations();
 	void knockback_fun(); 
 	void fighting();
 	void check_life();
-	void camera_engine(sf::View &camera,int direction);
 	/**************************************************/
 	bool jumping = false;
 	bool grounded=false;
@@ -46,15 +42,15 @@ public:
 	bool fight = false;
 	bool fight_two = false;
 	bool death = false;
-	bool enemy_be[2];//this is helpful bool to be enemy or not to be xD
-	bool move_camera = false;
+	/***************************************************/
+	float gravity = 20;
 	/***************************************************/
 	int knockknock;
 	int knockback_steps = 0;
 	int life = 125;
 	int moving = 0;
-	int start_pos_x = 0;
-	int start_pos_y = 0;
+	int start_pos_x;
+	int start_pos_y;
 	Player();
 private:
 	sf::Texture idle[6];
@@ -77,6 +73,5 @@ private:
 	bool be = true;
 	float velocity = 20;
 	float speed=7.5;
-	float gravity = 20;
 	void knockback_detection();
 };

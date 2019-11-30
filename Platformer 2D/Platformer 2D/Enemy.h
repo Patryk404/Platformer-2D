@@ -25,8 +25,10 @@ public:
 	bool death = false;
 	bool walking = true;
 	bool be = true;
+	//////////////////////////////////
 	int life = 50;
 	int knockback_steps = 0; 
+	int start_pos_x, start_pos_y;
 	/********************************/
 	Enemy();
 	void draw_Enemy(sf::RenderWindow &window);

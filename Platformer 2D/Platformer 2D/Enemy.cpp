@@ -12,6 +12,7 @@ Enemy::Enemy()
 	Enemy_txt[5].loadFromFile("Enemy//Run06.png");
 	Enemy_sp.setTexture(Enemy_txt[0]);
 	/****************************************************/
+	/****************************************************/
 	hitbuffer.loadFromFile("Sounds//Enemy_hit.wav");
 	Hit.setBuffer(hitbuffer);
 	Hit.setVolume(100);
@@ -48,14 +49,14 @@ Enemy::Enemy()
 void Enemy::draw_Enemy(sf::RenderWindow &window)
 {
 	window.draw(Enemy_sp);
-	for (int i = 0; i <= 1; i++)
+	/*for (int i = 0; i <= 1; i++)
 	{
 		window.draw(Rectangle[i]);
 	}
 	for (int i = 0; i < 4; i++)
 	{
 		window.draw(Player_Rect[i]);
-	}
+	}*/
 	window.draw(hp_bar);
 }
 void Enemy::move()

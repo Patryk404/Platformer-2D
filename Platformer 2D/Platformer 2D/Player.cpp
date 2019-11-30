@@ -94,27 +94,11 @@ Player::Player()
 	sword.setOrigin(sf::Vector2f((float)ex, (float)ygrek));
 	sword.rotate(90);
 	knockknock = rand() % 2 + 1;
-	camera_left.setSize(sf::Vector2f(600, 15));
-	camera_right.setSize(sf::Vector2f(600, 15));
-	camera_down.setSize(sf::Vector2f(600, 15));
-	camera_left.rotate(90);
-	camera_right.rotate(90);
-	ex = camera_left.getGlobalBounds().width;
-	ygrek = camera_left.getGlobalBounds().height;
-	ex /= 2;
-	ygrek /= 2;
-	camera_left.setOrigin(sf::Vector2f((float)ex, (float)ygrek));
-	camera_right.setOrigin(sf::Vector2f((float)ex, (float)ygrek));
-	ex = camera_down.getGlobalBounds().width;
-	ygrek = camera_down.getGlobalBounds().height;
-	camera_down.setOrigin(sf::Vector2f((float)ex, (float)ygrek));
 	gravitationbo = true;
 	health_bar.setSize(sf::Vector2f(125, 10));
 	health_bar.setFillColor(sf::Color::Red); 
 	life = 125;
 	death = false;
-	enemy_be[0] = true;
-	enemy_be[1] = true;
 }
 void Player::gravitation()
 {
@@ -129,7 +113,6 @@ void Player::movement()
 		running = true;
 		idling = false;
 		fight = false;
-		move_camera = false;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -138,11 +121,9 @@ void Player::movement()
 		running = true;
 		idling = false;
 		fight = false;
-		move_camera = false;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) == false && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) == false)
 	{
-		move_camera = true;
 		idling = true;
 		running = false;
 	}
@@ -192,52 +173,22 @@ void Player::Update_position_circle()
 		sword.setPosition(sf::Vector2f(Player_box->getPosition().x + 35, Player_box->getPosition().y));
 	}
 	else {sword.setPosition(sf::Vector2f(Player_box->getPosition().x - 35, Player_box->getPosition().y));}
-	health_bar.setPosition(sf::Vector2f(Player_box->getPosition().x-60, Player_box->getPosition().y - 60));
-	/*********************************************************************************************************/
-	if (move_camera == true)
-	{
-		camera_left.setPosition(sf::Vector2f(Player_box->getPosition().x - 400, Player_box->getPosition().y - 400));
-		camera_right.setPosition(sf::Vector2f(Player_box->getPosition().x -200, Player_box->getPosition().y - 400));
-	}
-	if (grounded == true)
-	{
-		camera_down.setPosition(sf::Vector2f(Player_box->getPosition().x + 300, Player_box->getPosition().y + 100));
-	}
-	/*********************************************************************************************************/
+	health_bar.setPosition(sf::Vector2f(Player_box->getPosition().x - 60, Player_box->getPosition().y - 60));
 }
 void Player::jump()
 {
 	Player_box->move(0, -velocity);
 }
-void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platforms, std::vector<sf::RectangleShape> &Walls, int number_of_invisible_walls, std::vector <sf::Sprite> &Spikes, int number_of_spikes, Enemy *eneme[], int number_of_enemies, sf::View &camera)
+void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platforms, std::vector<sf::RectangleShape> &Walls, int number_of_invisible_walls, std::vector <sf::Sprite> &Spikes, int number_of_spikes,std::vector<sf::Sprite> &Portals,int number_of_portals, std::vector <Enemy> &Enemies, int number_of_enemies, bool&new_game,bool&game, bool&lvl1, bool&lvl2, bool&lvl3)
 {
 	std::vector <sf::FloatRect> Platform_box(number_of_platforms);
 	std::vector <sf::FloatRect> Invisible_wall_box(number_of_invisible_walls);
 	std::vector <sf::FloatRect> Spike_box(number_of_spikes);
+	std::vector <sf::FloatRect> Portal_box(number_of_portals);
 	sf::FloatRect Rectangle_Box = rectangle.getGlobalBounds();
-	//////////////////////////////////// for first eneme[0]
-	sf::FloatRect Wall_one[2];
-	sf::FloatRect Enemy_Boxs_one[4];
-	/////////////////////////////////// for second eneme[1]
-	sf::FloatRect Wall_two[2];
-	sf::FloatRect Enemy_Boxs_two[4];
-	///////////////////////////////////
 	sf::FloatRect Player_Boxs[4];
 	sf::FloatRect Middle_Box = middlecircle.getGlobalBounds();
 	sf::FloatRect Excalibur = sword.getGlobalBounds();
-	sf::FloatRect camera_left_box = camera_left.getGlobalBounds();
-	sf::FloatRect camera_right_box = camera_right.getGlobalBounds();
-	sf::FloatRect camera_down_box = camera_down.getGlobalBounds();
-	if (enemy_be[0] == true)
-	{
-		Wall_one[0] = eneme[0]->Rectangle[0].getGlobalBounds();//left platform of eneme[0]
-		Wall_one[1] = eneme[0]->Rectangle[1].getGlobalBounds();//right platform of eneme[0]
-	}
-	if (enemy_be[1] == true)
-	{
-		Wall_two[0] = eneme[1]->Rectangle[0].getGlobalBounds();//left platform of eneme [1]
-		Wall_two[1] = eneme[1]->Rectangle[1].getGlobalBounds();//right platform of eneme [1]
-	}
 	for (int i = 0; i < 4; i++)
 	{
 		Player_Boxs[i] = circle[i].getGlobalBounds();
@@ -250,46 +201,20 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 	}
 	for (int i = 0; i < number_of_platforms; i++)
 	{
-		Platform_box[i] = Platforms[i].getGlobalBounds();
+		Platform_box[i] = Platforms[i].getGlobalBounds();//Platforms
 	}
 	for (int i = 0; i < number_of_invisible_walls; i++)
 	{
-		Invisible_wall_box[i] = Walls[i].getGlobalBounds();
+		Invisible_wall_box[i] = Walls[i].getGlobalBounds();//Invisible walls
 	}
 	for (int i = 0; i < number_of_spikes; i++)
 	{
-		Spike_box[i] = Spikes[i].getGlobalBounds();
+		Spike_box[i] = Spikes[i].getGlobalBounds();//Spikes
 	}
-	/////////////////////////////////////////////// for eneme[0]
-	if (enemy_be[0] == true)
+	for (int i = 0; i < number_of_portals; i++)
 	{
-		for (int i = 0; i < 4; i++)
-		{
-			Enemy_Boxs_one[i] = eneme[0]->Player_Rect[i].getGlobalBounds();
-			/*
-			Enemy_Boxs[0] is bottom platform
-			Enemy_Boxs[1] is right platform
-			Enemy_Boxs[2] is upper platform
-			Enemy_Boxs[3] is left platform
-			*/
-		}
+		Portal_box[i] = Portals[i].getGlobalBounds();//Portals
 	}
-	///////////////////////////////////////////////
-	/////////////////////////////////////////////// for eneme[1]
-	if (enemy_be[1] == true)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			Enemy_Boxs_two[i] = eneme[1]->Player_Rect[i].getGlobalBounds();
-			/*
-			Enemy_Boxs[0] is bottom platform
-			Enemy_Boxs[1] is right platform
-			Enemy_Boxs[2] is upper platform
-			Enemy_Boxs[3] is left platform
-			*/
-		}
-	}
-	////////////////////////////////////////////////
 	/***************************************************************************************************************************/
 	for (int i = 0; i < number_of_platforms; i++)
 	{
@@ -313,7 +238,7 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 		}
 		if (Player_Boxs[1].intersects(Platform_box[i]))
 		{
-			Player_box->setPosition(sf::Vector2f(Platforms[i].getPosition().x - 46, Player_box->getPosition().y));
+			Player_box->move(sf::Vector2f(-7.5, 0));
 			//knockback_detection(); Yyy idk but before rebuilding engine this function is working but after rebuild this function have bugs
 		}
 		if (Player_Boxs[2].intersects(Platform_box[i]))
@@ -323,7 +248,7 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 		}
 		if (Player_Boxs[3].intersects(Platform_box[i]))
 		{
-			Player_box->setPosition(sf::Vector2f(Platforms[i].getPosition().x + 143, Player_box->getPosition().y));
+			Player_box->move(sf::Vector2f(7.5, 0));
 		}
 		if (Player_Boxs[2].intersects(Rectangle_Box) || Player_Boxs[2].intersects(Platform_box[i]))
 		{
@@ -373,7 +298,7 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 		}
 		if (Player_Boxs[1].intersects(Invisible_wall_box[i]))
 		{
-			Player_box->setPosition(sf::Vector2f(Walls[i].getPosition().x - 46, Player_box->getPosition().y));
+			Player_box->move(sf::Vector2f(-7.5, 0));
 		}
 		if (Player_Boxs[2].intersects(Invisible_wall_box[i]))
 		{
@@ -381,7 +306,7 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 		}
 		if (Player_Boxs[3].intersects(Invisible_wall_box[i]))
 		{
-			Player_box->setPosition(sf::Vector2f(Walls[i].getPosition().x + 143, Player_box->getPosition().y));
+			Player_box->move(sf::Vector2f(7.5, 0));
 		}
 		if (Player_Boxs[2].intersects(Rectangle_Box) || Player_Boxs[2].intersects(Invisible_wall_box[i]))
 		{
@@ -409,181 +334,172 @@ void Player::colission(std::vector <sf::Sprite> &Platforms, int number_of_platfo
 		{
 			life = 0;
 		}
-	}
-	/*****************************************************************************************************************************/
-	int direction;// 1 = right, 2 = left, 3=down, 4=up
-	if (camera_right_box.intersects(Player_Boxs[1]))
+	} 
+	for (int i = 0; i < number_of_portals; i++)
 	{
-		direction = 1;
-		camera_right.move(7.5,0);
-		camera_left.move(7.5, 0);
-		camera_engine(camera,direction);
-	}
-	if (camera_left_box.intersects(Player_Boxs[3]))
-	{
-		direction = 2;
-		camera_left.move(-7.5, 0);
-		camera_right.move(-7.5, 0);
-		camera_engine(camera,direction);
-	}
-	if (camera_down_box.intersects(Player_Boxs[2]))
-	{
-		direction = 3;
-		camera_down.move(0, 20);
-		camera_engine(camera, direction);
-	}
-	if (Rectangle_Box.intersects(Player_Boxs[2]))
-	{
-		direction = 4;
-		camera_engine(camera, direction);
-	}
-	/*****************************************************************************************************************************/
-	if (enemy_be[0] == true)
-    {	
-		if (Middle_Box.intersects(Wall_one[0]))
+		if (Player_Boxs[0].intersects(Portal_box[i]))
 		{
-			eneme[0]->move_right = false;
-			eneme[0]->Enemy_sp.setScale(-2.f, 2.f);
-			eneme[0]->movingbo = true;
-			eneme[0]->anim = true;
-		}
-		else if (Middle_Box.intersects(Wall_one[1]))
-		{
-			eneme[0]->move_right = true;
-			eneme[0]->Enemy_sp.setScale(2.f, 2.f);
-			eneme[0]->movingbo = true;
-			eneme[0]->anim = true;
-		}
-		else {
-			eneme[0]->movingbo = false;
-			eneme[0]->anim = false;
-			eneme[0]->Enemy_sp.setTexture(eneme[0]->Enemy_txt[0]);
-		}
-	    if (Player_Boxs[1].intersects(Enemy_Boxs_one[3])||Player_Boxs[0].intersects(Enemy_Boxs_one[3]))
-	    {
-		    knockback = true;
-		    grounded = false;
-			eneme[0]->Hit.play();
-	    }
-	    if (Player_Boxs[0].intersects(Enemy_Boxs_one[2]))
-	    {
-		    knockback = true;
-		    grounded = false;
-		    upper = true; 
-			eneme[0]->Hit.play();
-	    }
-	    if (Player_Boxs[3].intersects(Enemy_Boxs_one[1]))
-	    {
-		    knockback = true;
-		    grounded = false;
-		    rightr = true;
-			eneme[0]->Hit.play();
-	    }
-	    if (Excalibur.intersects(Enemy_Boxs_one[3]))
-	    {
-		    if (fight_two == true)
-		    {
-			    eneme[0]->knockbackbo = true;
-			    eneme[0]->knockleft = true;
-			    eneme[0]->gravitationbo = false;
-			    eneme[0]->movingbo = false;
-			    Hit_s.play();
-		    }
-	    }
-	    if (Excalibur.intersects(Enemy_Boxs_one[1]))
-	    {
-		    if (fight_two == true)
-		    {
-				eneme[0]->knockbackbo = true;
-				eneme[0]->knockright = true;
-				eneme[0]->gravitationbo = false;
-				eneme[0]->movingbo = false;
-				Hit_s.play();
-		    }
-	    }
-		for (int i = 0; i < number_of_platforms; i++)
-		{
-			if (Enemy_Boxs_one[0].intersects(Platform_box[i]))
+			game = false;
+			new_game = true;
+			if (lvl1 == true)
 			{
-				eneme[0]->gravitationbo = false;
-				eneme[0]->Enemy_sp.setPosition(sf::Vector2f(eneme[0]->Enemy_sp.getPosition().x, Platforms[i].getPosition().y - 40));
-				eneme[0]->Enemy_sp.setColor(sf::Color::White);
+				lvl1 = false;
+				lvl2 = true;
+			}
+			else if(lvl2==true)
+			{
+				lvl2 = false;
+				lvl3 = true;
+			}
+			else if (lvl3 == true)
+			{
+				lvl3 = false;
+				new_game = false;
+				game = false;
 			}
 		}
-     }
-	if (enemy_be[1] == true)
-	{
-		if (Middle_Box.intersects(Wall_two[0]))
+		if (Player_Boxs[1].intersects(Portal_box[i]))
 		{
-			eneme[1]->move_right = false;
-			eneme[1]->Enemy_sp.setScale(-2.f, 2.f);
-			eneme[1]->movingbo = true;
-			eneme[1]->anim = true;
-		}
-		else if (Middle_Box.intersects(Wall_two[1]))
-		{
-			eneme[1]->move_right = true;
-			eneme[1]->Enemy_sp.setScale(2.f, 2.f);
-			eneme[1]->movingbo = true;
-			eneme[1]->anim = true;
-		}
-		else {
-			eneme[1]->movingbo = false;
-			eneme[1]->anim = false;
-			eneme[1]->Enemy_sp.setTexture(eneme[1]->Enemy_txt[0]);
-		}
-		if (Player_Boxs[1].intersects(Enemy_Boxs_two[3]) || Player_Boxs[0].intersects(Enemy_Boxs_two[3]))
-		{
-			knockback = true;
-			grounded = false;
-			eneme[1]->Hit.play();
-		}
-		if (Player_Boxs[0].intersects(Enemy_Boxs_two[2]))
-		{
-			knockback = true;
-			grounded = false;
-			upper = true;
-			eneme[1]->Hit.play();
-		}
-		if (Player_Boxs[3].intersects(Enemy_Boxs_two[1]))
-		{
-			knockback = true;
-			grounded = false;
-			rightr = true;
-			eneme[1]->Hit.play();
-		}
-		if (Excalibur.intersects(Enemy_Boxs_two[3]))
-		{
-			if (fight_two == true)
+			game = false;
+			new_game = true;
+			if (lvl1 == true)
 			{
-				eneme[1]->knockbackbo = true;
-				eneme[1]->knockleft = true;
-				eneme[1]->gravitationbo = false;
-				eneme[1]->movingbo = false;
-				Hit_s.play();
+				lvl3 = false;
+				lvl1 = false;
+				lvl2 = true;
+			}
+			else if (lvl2 == true)
+			{
+				lvl2 = false;
+				lvl3 = true;
+			}
+			else if (lvl3 == true)
+			{
+				lvl3 = false;
+				new_game = false;
+				game = false;
 			}
 		}
-		if (Excalibur.intersects(Enemy_Boxs_two[1]))
+		if (Player_Boxs[2].intersects(Portal_box[i]))
 		{
-			if (fight_two == true)
+			game = false;
+			new_game = true;
+			if (lvl1 == true)
 			{
-				eneme[1]->knockbackbo = true;
-				eneme[1]->knockright = true;
-				eneme[1]->gravitationbo = false;
-				eneme[1]->movingbo = false;
-				Hit_s.play();
+				lvl1 = false;
+				lvl2 = true;
+			}
+			else if (lvl2 == true)
+			{
+				lvl2 = false;
+				lvl3 = true;
+			}
+			else if (lvl3 == true)
+			{
+				lvl3 = false;
+				new_game = false;
+				game = false;
 			}
 		}
-		for (int i = 0; i < number_of_platforms; i++)
+		if (Player_Boxs[3].intersects(Portal_box[i]))
 		{
-			if (Enemy_Boxs_two[0].intersects(Platform_box[i]))
+			game = false;
+			new_game = true;
+			if (lvl1 == true)
 			{
-				eneme[1]->gravitationbo = false;
-				eneme[1]->Enemy_sp.setPosition(sf::Vector2f(eneme[1]->Enemy_sp.getPosition().x, Platforms[i].getPosition().y - 40));
-				eneme[1]->Enemy_sp.setColor(sf::Color::White);
+				lvl1 = false;
+				lvl2 = true;
+			}
+			else if (lvl2 == true)
+			{
+				lvl2 = false;
+				lvl3 = true;
+			}
+			else if (lvl3 == true)
+			{
+				lvl3 = false;
+				new_game = false;
+				game = false;
 			}
 		}
 	}
+	for (int i = 0; i < number_of_enemies; i++)
+	{
+		if (Enemies[i].be == true)// enemy colission 
+		{
+			if (Middle_Box.intersects(Enemies[i].Rectangle[0].getGlobalBounds()))
+			{
+				Enemies[i].move_right = false;
+				Enemies[i].Enemy_sp.setScale(-2.f, 2.f);
+				Enemies[i].movingbo = true;
+				Enemies[i].anim = true;
+			}
+			else if (Middle_Box.intersects(Enemies[i].Rectangle[1].getGlobalBounds()))
+			{
+				Enemies[i].move_right = true;
+				Enemies[i].Enemy_sp.setScale(2.f, 2.f);
+				Enemies[i].movingbo = true;
+				Enemies[i].anim = true;
+			}
+			else {
+				Enemies[i].movingbo = false;
+				Enemies[i].anim = false;
+				Enemies[i].Enemy_sp.setTexture(Enemies[i].Enemy_txt[0]);
+			}
+			if (Player_Boxs[1].intersects(Enemies[i].Player_Rect[3].getGlobalBounds()) || Player_Boxs[0].intersects(Enemies[i].Player_Rect[3].getGlobalBounds()))
+			{
+				knockback = true;
+				grounded = false;
+				Enemies[i].Hit.play();
+			}
+			if (Player_Boxs[0].intersects(Enemies[i].Player_Rect[2].getGlobalBounds()))
+			{
+				knockback = true;
+				grounded = false;
+				upper = true;
+				Enemies[i].Hit.play();
+			}
+			if (Player_Boxs[3].intersects(Enemies[i].Player_Rect[1].getGlobalBounds()))
+			{
+				knockback = true;
+				grounded = false;
+				rightr = true;
+				Enemies[i].Hit.play();
+			}
+			if (Excalibur.intersects(Enemies[i].Player_Rect[3].getGlobalBounds()))
+			{
+				if (fight_two == true)
+				{
+					Enemies[i].knockbackbo = true;
+					Enemies[i].knockleft = true;
+					Enemies[i].gravitationbo = false;
+					Enemies[i].movingbo = false;
+					Hit_s.play();
+				}
+			}
+			if (Excalibur.intersects(Enemies[i].Player_Rect[1].getGlobalBounds()))
+			{
+				if (fight_two == true)
+				{
+					Enemies[i].knockbackbo = true;
+					Enemies[i].knockright = true;
+					Enemies[i].gravitationbo = false;
+					Enemies[i].movingbo = false;
+					Hit_s.play();
+				}
+			}
+			for (int j = 0; j < number_of_platforms; j++)
+			{
+				if (Enemies[i].Player_Rect[0].getGlobalBounds().intersects(Platform_box[j]))
+				{
+					Enemies[i].gravitationbo = false;
+					Enemies[i].Enemy_sp.setPosition(sf::Vector2f(Enemies[i].Enemy_sp.getPosition().x, Enemies[i].Enemy_sp.getPosition().y - 20));
+					Enemies[i].Enemy_sp.setColor(sf::Color::White);
+				}
+			}
+		}
+	}
+
 }
 void Player::animations()
 {
@@ -730,24 +646,5 @@ void Player::check_life()
 		fight = false;
 		idling = false;
 		running = false;
-	}
-}
-void Player::camera_engine(sf::View &camera,int direction)
-{
-	if (direction == 1)
-	{
-		camera.move(7.5, 0);
-	}
-	if (direction == 2)
-	{
-		camera.move(-7.5, 0);
-	}
-	if (direction == 3)
-	{
-		camera.move(0, 20);
-	}
-	if (direction == 4)
-	{
-		camera.setCenter(sf::Vector2f(Player_box->getPosition().x, Player_box->getPosition().y));
 	}
 }
