@@ -274,12 +274,10 @@ void Player::colission(std::vector<sf::Sprite> &Platforms, int number_of_platfor
 		if (Player_Boxs[1].intersects(Platform_box[i]))
 		{
 			Player_box->move(sf::Vector2f(-7.5, 0));
-			// knockback_detection(); Yyy idk but before rebuilding engine this function is working but after rebuild this function have bugs
 		}
 		if (Player_Boxs[2].intersects(Platform_box[i]))
 		{
 			Player_box->setPosition(sf::Vector2f(Player_box->getPosition().x, Platforms[i].getPosition().y + 135));
-			// knockback_detection(); Yyy idk but before rebuilding engine this function is working but after rebuild this function have bugs
 		}
 		if (Player_Boxs[3].intersects(Platform_box[i]))
 		{
@@ -298,7 +296,7 @@ void Player::colission(std::vector<sf::Sprite> &Platforms, int number_of_platfor
 		}*/
 	}
 	/************************************************************************/
-	int notground = 0; // omg its works ;)
+	int notground = 0;
 	for (int i = 0; i < number_of_platforms; i++)
 	{
 		if (!Player_Boxs[0].intersects(Platform_box[i]))

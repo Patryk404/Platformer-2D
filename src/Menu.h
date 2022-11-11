@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "map.h"
+#include "Map.h"
 #include "DeathScreen.h"
 class Menu
 {

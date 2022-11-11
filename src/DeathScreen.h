@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "Player.h"
-#include "map.h"
+#include "Map.h"
 class Death_Screen
 {
 private:

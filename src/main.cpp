@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "map.h"
+#include "Map.h"
 #include "Menu.h"
 sf::RenderWindow window(sf::VideoMode(1280, 720), "2D Platformer");
 Menu menu;
@@ -58,8 +58,8 @@ int main()
 				window.draw(map->Spikes[i]);
 			}
 			window.draw(*map->player1.Player_box);
-			// window.draw(map.player1.rectangle);
-			// window.draw(map.player1.sword);
+			window.draw(map->player1.rectangle);
+			window.draw(map->player1.sword);
 			window.draw(map->player1.health_bar);
 			// window.draw(map.player1.camera_left);
 			// window.draw(map.player1.camera_right);
@@ -112,7 +112,7 @@ int main()
 		{
 			delete map;
 			map = new Map();
-			map->player1.restart();
+		    //map->player1.restart();
 
 			if (map->lvl1 == true)
 			{

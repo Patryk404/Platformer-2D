@@ -1,4 +1,4 @@
-#include "map.h"
+#include "Map.h"
 #include <iostream>
 #include <vector>
 void Map::dont_draw_enemy()
