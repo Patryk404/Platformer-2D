@@ -58,8 +58,8 @@ int main()
 				window.draw(map->Spikes[i]);
 			}
 			window.draw(*map->player1.Player_box);
-			window.draw(map->player1.rectangle);
-			window.draw(map->player1.sword);
+			//window.draw(map->player1.rectangle);
+			//window.draw(map->player1.sword);
 			window.draw(map->player1.health_bar);
 			// window.draw(map.player1.camera_left);
 			// window.draw(map.player1.camera_right);
